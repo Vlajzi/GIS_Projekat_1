@@ -1,0 +1,29 @@
+osmium tags-filter -v -o data.osm.pbf serbia-latest.osm.pbf w/highway n/boundary
+
+osm2pgsql -d gis -W -U postgres -O flex -S highways.lua data.osm.pbf
+
+osmium tags-filter -v -o waterway.osm.pbf serbia-latest.osm.pbf w/waterway 
+
+osm2pgsql -d gis -W -U postgres -O flex -S river.lua waterway.osm.pbf
+
+osmium tags-filter -v -o rail.osm.pbf serbia-latest.osm.pbf w/railway 
+
+osm2pgsql -d gis -W -U postgres -O flex -S railway.lua rail.osm.pbf
+
+osmium tags-filter -v -o fuel.osm.pbf serbia-latest.osm.pbf n/fuel:octane_100 n/fuel:diesel n/fuel:lpg n/fuel:octane_95 --overwrite
+
+osmium tags-filter -v -o most.osm.pbf serbia-latest.osm.pbf n/bridge
+
+osm2pgsql -d gis -W -U postgres -O flex -S bridge.lua ../most.osm.pbf
+
+osmium tags-filter -v -o bus.osm.pbf serbia-latest.osm.pbf n/bus
+
+osm2pgsql -d gis -W -U postgres -O flex -S bus.lua ../bus.osm.pbf
+
+osmium tags-filter -v -o historic.osm.pbf serbia-latest.osm.pbf n/historic
+
+osm2pgsql -d gis -W -U postgres -O flex -S granicni_kamen.lua ../historic.osm.pbf
+
+osmium tags-filter -v -o barrier.osm.pbf serbia-latest.osm.pbf n/barrier
+
+osm2pgsql -d gis -W -U postgres -O flex -S barrier.lua ../barrier.osm.pbf
