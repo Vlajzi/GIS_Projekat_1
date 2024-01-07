@@ -1,0 +1,2 @@
+Baza.sql filter=lfs diff=lfs merge=lfs -text
+serbia-latest.osm.pbf filter=lfs diff=lfs merge=lfs -text
